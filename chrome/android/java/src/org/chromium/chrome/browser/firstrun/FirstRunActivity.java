@@ -34,6 +34,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import android.util.Log;
+import org.chromium.chrome.browser.locale.LocaleManager;
+
 /**
  * Handles the First Run Experience sequences shown to the user launching Chrome for the first time.
  * It supports only a simple format of FRE:
@@ -286,6 +289,11 @@ public class FirstRunActivity extends FirstRunActivityBase implements FirstRunPa
         Runnable onNativeFinished = new Runnable() {
             @Override
             public void run() {
+                                 Log.d("BrowserX", "FirstRunActivity");
+                TemplateUrlServiceFactory.get().setSearchEngine("duckduckgo.com");
+           // RecordUserAction.record("SearchEngine_ManualChange");
+           LocaleManager.getInstance().setSearchEngineAutoSwitch(false);
+                
                 if (isActivityFinishingOrDestroyed()) return;
 
                 onNativeDependenciesFullyInitialized();
